@@ -1,9 +1,9 @@
 import { ReactNode } from "react";
-import styles from "./Row.module.css";
+import styles from "./Column.module.css";
 type Props = {
   children: ReactNode;
 };
 
 export default function Column({ children }: Props) {
-  return <div className={styles.row}>{children}</div>;
+  return <div className={styles.cl}>{children}</div>;
 }

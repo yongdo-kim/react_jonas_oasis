@@ -1,5 +1,18 @@
+import { Outlet } from "react-router-dom";
+import styles from "./AppLayout.module.css";
+import Header from "./Header";
+import Sidebar from "./Sidebar";
+
 function AppLayout() {
-  return <>AppLayout</>;
+  return (
+    <div className={styles.container}>
+      <Header />
+      <Sidebar />
+      <main className={styles.main}>
+        <Outlet />
+      </main>
+    </div>
+  );
 }
 
 export default AppLayout;
