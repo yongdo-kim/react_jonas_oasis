@@ -6,8 +6,8 @@ import Sidebar from "./Sidebar";
 function AppLayout() {
   return (
     <div className={styles.container}>
-      <Header />
       <Sidebar />
+      <Header />
       <main className={styles.main}>
         <Outlet />
       </main>
