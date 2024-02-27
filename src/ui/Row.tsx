@@ -1,11 +1,15 @@
-import { ReactNode } from "react";
-import styles from './Row.module.css'
+import { CSSProperties, ReactNode } from "react";
+import styles from "./Row.module.css";
 type RowProps = {
+  style?: CSSProperties;
   children: ReactNode;
 };
 
-export default function Row({ children }: RowProps) {
-  return <div className={styles.row}>{children}</div>;
+export default function Row({ children, style }: RowProps) {
+  const className = `${styles.row}`;
+  return (
+    <div className={className} style={style}>
+      {children}
+    </div>
+  );
 }
-
-
