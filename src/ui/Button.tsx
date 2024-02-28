@@ -10,13 +10,11 @@ type ButtonProps = {
 
 export default function Button({
   children,
-  size,
-  variations,
+  size = "primary",
+  variations = "medium",
   onClick,
 }: ButtonProps) {
-  const className = `${styles.button} ${size ? styles[size] : "primary"} ${
-    variations ? styles[variations] : "medium"
-  }`;
+  const className = `${styles.button} ${styles[size]} ${styles[variations]}`;
   return (
     <button onClick={onClick} className={className}>
       {children}

@@ -5,11 +5,13 @@ import Sidebar from "./Sidebar";
 
 function AppLayout() {
   return (
-    <div className={styles.container}>
+    <div className={styles.layout}>
       <Sidebar />
       <Header />
       <main className={styles.main}>
-        <Outlet />
+        <div className={styles.container}>
+          <Outlet />
+        </div>
       </main>
     </div>
   );

@@ -7,25 +7,26 @@ import CabinRow from "./CabinRow";
 
 export default function CabinTable() {
   const { isLoading, data: cabins } = useQuery({
-    queryKey: ["cabin"],
+    queryKey: ["cabins"],
     queryFn: getCabins,
   });
   if (isLoading) return <Spinner />;
 
   return (
-    <div role='table' className={styles.table}>
-      <div className={styles.tableHeader}>
-        <div></div>
-        <div>Cabin</div>
-        <div>Capacity</div>
-        <div>Price</div>
-        <div>Discount</div>
-        <div></div>
+    <>
+      <div role="table" className={styles.table}>
+        <div className={styles.tableHeader}>
+          <div></div>
+          <div>Cabin</div>
+          <div>Capacity</div>
+          <div>Price</div>
+          <div>Discount</div>
+          <div></div>
+        </div>
+        {cabins?.map((cabin) => (
+          <CabinRow cabin={cabin} key={cabin.id} />
+        ))}
       </div>
-      {cabins?.map((cabin) => (
-        <CabinRow cabin={cabin} key={cabin.id} />
-      ))}
-    </div>
+    </>
   );
-  // return <div>CabinTable</div>;
 }
