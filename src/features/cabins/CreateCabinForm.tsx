@@ -64,7 +64,12 @@ function CreateCabinForm() {
       <FormRow
         children={
           <>
-            <Button onClick={() => {}} variations="secondary" size="medium">
+            <Button
+              onClick={() => {}}
+              variations="secondary"
+              size="medium"
+              type="reset"
+            >
               Cancel
             </Button>
             <Button onClick={() => {}} variations="secondary" size="medium">

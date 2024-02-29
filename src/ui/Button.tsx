@@ -1,4 +1,4 @@
-import { CSSProperties, MouseEventHandler, ReactNode } from "react";
+import { ButtonHTMLAttributes, CSSProperties, ReactNode } from "react";
 import styles from "./Button.module.css";
 
 type ButtonProps = {
@@ -6,19 +6,18 @@ type ButtonProps = {
   variations?: string;
   children: ReactNode;
   style?: CSSProperties;
-  onClick: MouseEventHandler<HTMLButtonElement>;
-};
+} & ButtonHTMLAttributes<HTMLButtonElement>;
 
 export default function Button({
   children,
   size = "primary",
   variations = "medium",
   style,
-  onClick,
+  ...rest
 }: ButtonProps) {
   const className = `${styles.button} ${styles[size]} ${styles[variations]}`;
   return (
-    <button onClick={onClick} className={className} style={style}>
+    <button className={className} style={style} {...rest}>
       {children}
     </button>
   );
