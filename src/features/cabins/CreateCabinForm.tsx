@@ -1,10 +1,12 @@
-import { SubmitHandler, useForm } from "react-hook-form";
+import { SubmitErrorHandler, SubmitHandler, useForm } from "react-hook-form";
 import Button from "../../ui/Button";
 
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { createCabins } from "../../services/apiCabins";
 
 import toast from "react-hot-toast";
+
+import Error from "../../ui/Error";
 import FileInput from "../../ui/FileInput";
 import Form from "../../ui/Form";
 import FormRow from "../../ui/FormRow";
@@ -12,15 +14,17 @@ import Input from "../../ui/Input";
 import Label from "../../ui/Label";
 import Textarea from "../../ui/Textarea";
 
+//이걸 기준으로 데이터가 저장된다.
 export type Inputs = {
   name: string;
-  maxCapacity: string;
-  regularPrice: string;
+  maxCapacity: number;
+  regularPrice: number;
   discount: number;
 };
 
 function CreateCabinForm() {
-  const { register, handleSubmit, reset } = useForm<Inputs>();
+  const { register, handleSubmit, reset, getValues, formState } =
+    useForm<Inputs>();
   const queryClient = useQueryClient();
   const { mutate, isPending } = useMutation({
     mutationFn: createCabins,
@@ -34,34 +38,92 @@ function CreateCabinForm() {
 
   const onSubmit: SubmitHandler<Inputs> = (data) => {
     //따로 파라미터가 없어도 넣은것으로 인식.
-    console.log("onSubmit", data);
     mutate(data);
   };
 
+  const onError: SubmitErrorHandler<Inputs> | undefined = (errors) => {
+    console.log(errors);
+  };
+
   return (
-    <Form onSubmit={handleSubmit(onSubmit)}>
+    <Form onSubmit={handleSubmit(onSubmit, onError)}>
       <FormRow
         label={<Label text='Cabin name' htmlFor={"name"} />}
-        children={<Input type='text' id='name' register={register} />}
-        error={undefined}
+        children={
+          <Input
+            type='text'
+            id='name'
+            register={register("name", {
+              required: "This field is required",
+              min: {
+                value: 1,
+                message: "Capacity should be at least 1",
+              },
+            })}
+          />
+        }
+        error={
+          formState.errors.name?.message && (
+            <Error errorText={formState.errors.name.message} />
+          )
+        }
       />
 
       <FormRow
         label={<Label text='MaxCapacity' htmlFor={"maxCapacity"} />}
-        children={<Input type='number' id='maxCapacity' register={register} />}
-        error={undefined}
+        children={
+          <Input
+            type='number'
+            id='maxCapacity'
+            register={register("maxCapacity", {
+              required: "This field is required",
+            })}
+          />
+        }
+        error={
+          formState.errors.maxCapacity?.message && (
+            <Error errorText={formState.errors.maxCapacity.message} />
+          )
+        }
       />
 
       <FormRow
         label={<Label text='RegularPrice' htmlFor={"regularPrice"} />}
-        children={<Input type='number' id='regularPrice' register={register} />}
-        error={undefined}
+        children={
+          <Input
+            type='number'
+            id='regularPrice'
+            register={register("regularPrice", {
+              required: "This field is required",
+            })}
+          />
+        }
+        error={
+          formState.errors.regularPrice?.message && (
+            <Error errorText={formState.errors.regularPrice.message} />
+          )
+        }
       />
 
       <FormRow
         label={<Label text='Discount' htmlFor={"discount"} />}
-        children={<Input type='number' id='discount' register={register} />}
-        error={undefined}
+        children={
+          <Input
+            type='number'
+            id='discount'
+            register={register("discount", {
+              required: "This field is required",
+              validate: (value) =>
+                value <= getValues().regularPrice ||
+                "Discount should be less than regular price",
+            })}
+          />
+        }
+        error={
+          formState.errors.discount?.message && (
+            <Error errorText={formState.errors.discount.message} />
+          )
+        }
       />
 
       <FormRow
