@@ -5,7 +5,8 @@ import Heading from "../ui/Heading";
 import Row from "../ui/Row";
 import Button from "../ui/Button";
 import Column from "../ui/Column";
-import { useToaster } from "react-hot-toast";
+
+import CreateCabinForm from "../features/cabins/CreateCabinForm";
 
 function Cabins() {
   const [showForm, setShowForm] = useState(false);
@@ -37,6 +38,7 @@ function Cabins() {
           onClick={() => setShowForm(!showForm)}
           children={"Add new cabin"}
         ></Button>
+        {showForm && <CreateCabinForm />}
       </Column>
     </>
   );
