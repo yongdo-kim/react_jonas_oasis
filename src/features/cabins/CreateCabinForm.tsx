@@ -27,25 +27,35 @@ function CreateCabinForm() {
     <Form onSubmit={handleSubmit(onSubmit)}>
       <FormRow
         label={<Label text="Cabin name" htmlFor={"name"} />}
-        children={<Input type="text" id="name" register={register} />}
+        children={<Input type="text" id="name" {...register("name")} />}
         error={undefined}
       />
 
       <FormRow
         label={<Label text="MaxCapacity" htmlFor={"maxCapacity"} />}
-        children={<Input type="number" id="maxCapacity" register={register} />}
+        children={
+          <Input type="number" id="maxCapacity" {...register("maxCapacity")} />
+        }
         error={undefined}
       />
 
       <FormRow
         label={<Label text="RegularPrice" htmlFor={"regularPrice"} />}
-        children={<Input type="number" id="regularPrice" register={register} />}
+        children={
+          <Input
+            type="number"
+            id="regularPrice"
+            {...register("regularPrice")}
+          />
+        }
         error={undefined}
       />
 
       <FormRow
         label={<Label text="Discount" htmlFor={"discount"} />}
-        children={<Input type="number" id="discount" register={register} />}
+        children={
+          <Input type="number" id="discount" {...register("discount")} />
+        }
         error={undefined}
       />
 

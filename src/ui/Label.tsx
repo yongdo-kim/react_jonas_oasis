@@ -1,12 +1,12 @@
+import { LabelHTMLAttributes } from "react";
 import styles from "./Label.module.css";
 
 type LabelProps = {
   text: string;
-  htmlFor?: string;
-};
-export default function Label({ text, htmlFor }: LabelProps) {
+} & LabelHTMLAttributes<HTMLLabelElement>;
+export default function Label({ text, ...rest }: LabelProps) {
   return (
-    <label className={styles.label} htmlFor={htmlFor}>
+    <label className={styles.label} {...rest}>
       {text}
     </label>
   );
