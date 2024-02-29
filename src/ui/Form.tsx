@@ -3,12 +3,13 @@ import styles from "./Form.module.css";
 
 type FormProp = {
   children: ReactNode;
+  onSubmit?: React.FormEventHandler<HTMLFormElement>;
 };
 
-export default function Form({ children }: FormProp) {
+export default function Form({ children, onSubmit }: FormProp) {
   return (
-    <div role="form" className={styles.form}>
+    <form role="form" className={styles.form} onSubmit={onSubmit}>
       {children}
-    </div>
+    </form>
   );
 }

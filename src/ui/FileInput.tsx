@@ -1,4 +1,4 @@
-import styles from "./Fileinput.module.css";
+import styles from "./FileInput.module.css";
 
 type FileInputProps = {
   id: string;
