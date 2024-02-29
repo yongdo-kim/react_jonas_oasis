@@ -5,6 +5,17 @@ import { getCabins } from "../../services/apiCabins";
 import Spinner from "../../ui/Spinner";
 import CabinRow from "./CabinRow";
 
+export type CabinProps = {
+  created_at: string;
+  description: string | null;
+  discount: number | null;
+  id: number;
+  image: string | null;
+  maxCapacity: number | null;
+  name: string | null;
+  regularPrice: number | null;
+};
+
 export default function CabinTable() {
   const { isLoading, data: cabins } = useQuery({
     queryKey: ["cabins"],
@@ -14,7 +25,7 @@ export default function CabinTable() {
 
   return (
     <>
-      <div role="table" className={styles.table}>
+      <div role='table' className={styles.table}>
         <div className={styles.tableHeader}>
           <div></div>
           <div>Cabin</div>

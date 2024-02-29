@@ -1,8 +1,8 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { toast } from "react-hot-toast";
+import { deleteCabins } from "../../services/apiCabins";
 import { formatCurrency } from "../../utils/helpers";
 import styles from "./CabinRow.module.css";
-import { deleteCabins } from "../../services/apiCabins";
-import { toast } from "react-hot-toast";
 
 type CabinProp = {
   cabin: {
@@ -33,7 +33,7 @@ export default function CabinRow({ cabin }: CabinProp) {
 
   return (
     <div className={styles.tableRow}>
-      <img src={cabin.image ?? ""} alt="" className={styles.img} />
+      <img src={cabin.image ?? ""} alt='' className={styles.img} />
       <div className={styles.cabin}>{cabin.name}</div>
       <div>Fits up to {cabin.maxCapacity} guests </div>
       <div className={styles.price}>{formatCurrency(cabin.regularPrice)}</div>

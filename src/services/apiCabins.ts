@@ -1,3 +1,5 @@
+import { CabinProps } from "../features/cabins/CabinTable";
+import { Inputs } from "../features/cabins/CreateCabinForm";
 import supabase from "./supabase";
 
 export async function getCabins() {
@@ -6,7 +8,24 @@ export async function getCabins() {
     console.log(error);
     throw new Error("Cabins and not be loaded");
   }
-  return data;
+  return data as CabinProps[];
+}
+
+export async function createCabins(cabins: Inputs) {
+  console.log(cabins);
+  // const { data, error } = await supabase.from("cabins").insert([
+  //   {
+  //     name: cabins.name,
+  //     maxCapacity: cabins.maxCapacity,
+  //     regularPrice: cabins.regularPrice,
+  //     discount: cabins.discount,
+  //   },
+  // ]);
+  // if (error) {
+  //   console.log(error);
+  //   throw new Error("Cabins and not be inserted");
+  // }
+  // return data;
 }
 
 export async function deleteCabins(id: number) {
