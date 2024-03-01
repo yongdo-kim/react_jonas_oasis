@@ -1,10 +1,12 @@
+import { InputHTMLAttributes } from "react";
+import { UseFormRegisterReturn } from "react-hook-form";
+import { Inputs } from "../features/cabins/CreateCabinForm";
 import styles from "./FileInput.module.css";
 
 type FileInputProps = {
-  id: string;
-  accept: string;
-};
+  register: UseFormRegisterReturn<keyof Inputs>;
+} & InputHTMLAttributes<HTMLInputElement>;
 
-export default function FileInput({ id, accept }: FileInputProps) {
-  return <input className={styles.file} type="file" id={id} accept={accept} />;
+export default function FileInput({ register, ...rest }: FileInputProps) {
+  return <input className={styles.file} {...rest} {...register} />;
 }

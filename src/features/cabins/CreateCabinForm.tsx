@@ -20,6 +20,8 @@ export type Inputs = {
   maxCapacity: number;
   regularPrice: number;
   discount: number;
+  description: string;
+  image: string;
 };
 
 function CreateCabinForm() {
@@ -53,6 +55,7 @@ function CreateCabinForm() {
           <Input
             type='text'
             id='name'
+            disabled={isPending}
             register={register("name", {
               required: "This field is required",
               min: {
@@ -75,6 +78,7 @@ function CreateCabinForm() {
           <Input
             type='number'
             id='maxCapacity'
+            disabled={isPending}
             register={register("maxCapacity", {
               required: "This field is required",
             })}
@@ -93,6 +97,7 @@ function CreateCabinForm() {
           <Input
             type='number'
             id='regularPrice'
+            disabled={isPending}
             register={register("regularPrice", {
               required: "This field is required",
             })}
@@ -111,6 +116,7 @@ function CreateCabinForm() {
           <Input
             type='number'
             id='discount'
+            disabled={isPending}
             register={register("discount", {
               required: "This field is required",
               validate: (value) =>
@@ -128,13 +134,35 @@ function CreateCabinForm() {
 
       <FormRow
         label={<Label text='Description' htmlFor={"description"} />}
-        children={<Textarea id='description' defaultValue='' />}
-        error={undefined}
+        children={
+          <Textarea
+            id='description'
+            defaultValue=''
+            disabled={isPending}
+            register={register("description", {
+              required: "This field is required",
+            })}
+          />
+        }
+        error={
+          formState.errors.description?.message && (
+            <Error errorText={formState.errors.description.message} />
+          )
+        }
       />
 
       <FormRow
         label={<Label text='Cabin photo' htmlFor={"image"} />}
-        children={<FileInput id='image' accept='image/*' />}
+        children={
+          <FileInput
+            id='image'
+            accept='image/*'
+            type='file'
+            register={register("image", {
+              required: "This field is required",
+            })}
+          />
+        }
         error={undefined}
       />
 

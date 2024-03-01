@@ -5,7 +5,6 @@ import styles from "./Input.module.css";
 
 type InputProps = {
   id: keyof Inputs;
-
   register: UseFormRegisterReturn<keyof Inputs>;
 } & InputHTMLAttributes<HTMLInputElement>;
 

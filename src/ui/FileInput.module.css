@@ -2,7 +2,7 @@
   font: inherit;
   font-weight: 500;
 }
-.file::file-selctor_button {
+.file[type="file"]::file-selector-button {
   font: inherit;
   font-weight: 500;
   padding: 0.8rem 1.2rem;
@@ -15,6 +15,6 @@
   transition: color 0.2s, background-color 0.2s;
 }
 
-.file::file-selctor_button:hover {
+.file[type="file"]::file-selctor-button:hover {
   background-color: var(--color-brand-700);
 }
