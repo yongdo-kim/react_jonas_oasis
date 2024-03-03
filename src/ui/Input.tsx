@@ -4,10 +4,9 @@ import { Inputs } from "../features/cabins/CreateCabinForm";
 import styles from "./Input.module.css";
 
 type InputProps = {
-  id: keyof Inputs;
-  register: UseFormRegisterReturn<keyof Inputs>;
+  register: UseFormRegisterReturn;
 } & InputHTMLAttributes<HTMLInputElement>;
 
-export default function Input({ id, register, ...rest }: InputProps) {
+export default function Input({register, ...rest }: InputProps) {
   return <input {...rest} className={styles.input} {...register} />;
 }

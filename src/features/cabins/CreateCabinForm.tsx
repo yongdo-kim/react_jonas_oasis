@@ -57,7 +57,7 @@ function CreateCabinForm({ cabin }: { cabin?: CabinProp }) {
       cabin.description = data.description;
       cabin.image = data.editImage; //여기는 잠시 패스
 
-      editCabin({ cabin });
+      editCabin({ cabin }, { onSuccess: () => reset() });
     } else createCabin({ ...data }, { onSuccess: () => reset() });
   };
 
