@@ -1,11 +1,6 @@
 import { SubmitErrorHandler, SubmitHandler, useForm } from "react-hook-form";
 import Button from "../../ui/Button";
 
-import { useMutation, useQueryClient } from "@tanstack/react-query";
-
-import toast from "react-hot-toast";
-
-import { createCabins, editCabins } from "../../services/apiCabins";
 import Error from "../../ui/Error";
 import FileInput from "../../ui/FileInput";
 import Form from "../../ui/Form";
@@ -14,6 +9,8 @@ import Input from "../../ui/Input";
 import Label from "../../ui/Label";
 import Textarea from "../../ui/Textarea";
 import { CabinProp } from "./CabinRow";
+import useCreateCabin from "./useCreateCabin";
+import useEditCabin from "./useEditCabin";
 
 //이걸 기준으로 데이터가 저장된다.
 export type Inputs = {
@@ -45,30 +42,10 @@ function CreateCabinForm({ cabin }: { cabin?: CabinProp }) {
         : undefined,
     });
 
-  //query
-  const queryClient = useQueryClient();
-
   //create mutate
-  const { mutate: createCabin, isPending: isCreating } = useMutation({
-    mutationFn: createCabins,
-    onSuccess: () => {
-      toast.success("New cabin successfullt created");
-      queryClient.invalidateQueries({ queryKey: ["cabins"] });
-      reset(); //useForm 초기화
-    },
-    onError: (err) => toast.error(err.message),
-  });
-
+  const { isCreating, createCabin } = useCreateCabin();
   //edit mutate
-  const { mutate: editCabin, isPending: isEditing } = useMutation({
-    mutationFn: editCabins,
-    onSuccess: () => {
-      toast.success("New cabin successfullt edited");
-      queryClient.invalidateQueries({ queryKey: ["cabins"] });
-      reset(); //useForm 초기화
-    },
-    onError: (err) => toast.error(err.message),
-  });
+  const { isEditing, editCabin } = useEditCabin();
 
   //submit 시점 이후 여기서 분기처리
   const onSubmit: SubmitHandler<Inputs> = (data) => {
@@ -81,7 +58,7 @@ function CreateCabinForm({ cabin }: { cabin?: CabinProp }) {
       cabin.image = data.editImage; //여기는 잠시 패스
 
       editCabin({ cabin });
-    } else createCabin({ ...data });
+    } else createCabin({ ...data }, { onSuccess: () => reset() });
   };
 
   const onError: SubmitErrorHandler<Inputs> | undefined = (errors) => {
