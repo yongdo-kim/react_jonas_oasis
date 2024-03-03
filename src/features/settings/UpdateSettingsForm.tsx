@@ -29,13 +29,16 @@ function UpdateSettingsForm() {
   const { isUpdating, updateSetting } = useUpdateSettings();
 
   const onSubmit: SubmitHandler<SettingInputs> = (data) => {
-    const result = settings;
-    if (result != undefined) {
-      result.minBookingLength = data.minNights;
-      result.maxBookingLength = data.maxNights;
-      result.maxGuestsPerBooking = data.maxGuests;
-      result.breakfastPrice = data.breakfastPrice;
-      updateSetting(result);
+    if (settings) {
+      const updatedSettings = {
+        ...settings,
+        minBookingLength: data.minNights,
+        maxBookingLength: data.maxNights,
+        maxGuestsPerBooking: data.maxGuests,
+        breakfastPrice: data.breakfastPrice,
+      };
+
+      updateSetting(updatedSettings);
     }
   };
 

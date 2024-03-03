@@ -1,6 +1,5 @@
 import { InputHTMLAttributes } from "react";
 import { UseFormRegisterReturn } from "react-hook-form";
-import { Inputs } from "../features/cabins/CreateCabinForm";
 import styles from "./Input.module.css";
 
 type InputProps = {
