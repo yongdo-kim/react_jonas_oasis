@@ -8,6 +8,7 @@ import {
 } from "react";
 import { createPortal } from "react-dom";
 import { HiXMark } from "react-icons/hi2";
+import { useOutsideClick } from "../hooks/useOutsideClick";
 import styles from "./Modal.module.css";
 
 type ModalProps = {
@@ -58,11 +59,12 @@ function Window({
   opensWindowName: string;
 }) {
   const { openName, close } = useContext(ModalContext);
-  if (opensWindowName !== openName) return null;
+  const ref = useOutsideClick(close);
 
+  if (opensWindowName !== openName) return null;
   return createPortal(
     <div className={styles.overlay}>
-      <div className={styles.modal}>
+      <div className={styles.modal} ref={ref}>
         <button
           onClick={close}
           className={styles.button}
