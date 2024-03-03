@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react";
 import CabinTable from "../features/cabins/CabinTable";
 import { getCabins } from "../services/apiCabins";
-import Heading from "../ui/Heading";
-import Row from "../ui/Row";
 import Button from "../ui/Button";
 import Column from "../ui/Column";
+import Heading from "../ui/Heading";
+import Row from "../ui/Row";
 
 import CreateCabinForm from "../features/cabins/CreateCabinForm";
 
@@ -24,7 +24,7 @@ function Cabins() {
           maxWidth: "80rem",
         }}
       >
-        <Heading style="h1">All cabins</Heading>
+        <Heading style='h1'>All cabins</Heading>
         <p>TEST</p>
       </Row>
       <Column>
@@ -32,8 +32,8 @@ function Cabins() {
           <CabinTable />
         </Row>
         <Button
-          variations="primary"
-          size="medium"
+          variations='primary'
+          size='medium'
           style={{ width: "80rem" }}
           onClick={() => setShowForm(!showForm)}
           children={"Add new cabin"}

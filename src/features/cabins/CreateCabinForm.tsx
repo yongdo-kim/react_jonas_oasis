@@ -2,10 +2,10 @@ import { SubmitErrorHandler, SubmitHandler, useForm } from "react-hook-form";
 import Button from "../../ui/Button";
 
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { createCabins } from "../../services/apiCabins";
 
 import toast from "react-hot-toast";
 
+import { createCabins, editCabins } from "../../services/apiCabins";
 import Error from "../../ui/Error";
 import FileInput from "../../ui/FileInput";
 import Form from "../../ui/Form";
@@ -13,6 +13,7 @@ import FormRow from "../../ui/FormRow";
 import Input from "../../ui/Input";
 import Label from "../../ui/Label";
 import Textarea from "../../ui/Textarea";
+import { CabinProp } from "./CabinRow";
 
 //이걸 기준으로 데이터가 저장된다.
 export type Inputs = {
@@ -21,31 +22,73 @@ export type Inputs = {
   regularPrice: number;
   discount: number;
   description: string;
-  image: string;
+  image: FileList;
+  editImage: string;
 };
 
-function CreateCabinForm() {
+function CreateCabinForm({ cabin }: { cabin?: CabinProp }) {
+  const canEdit = cabin != undefined;
+
+  //form
   const { register, handleSubmit, reset, getValues, formState } =
-    useForm<Inputs>();
+    useForm<Inputs>({
+      defaultValues: canEdit
+        ? {
+            name: cabin.name!,
+            maxCapacity: cabin.maxCapacity!,
+            regularPrice: cabin.regularPrice!,
+            discount: cabin.discount!,
+            description: cabin.description!,
+            editImage: cabin.image!,
+            image: undefined,
+          }
+        : undefined,
+    });
+
+  //query
   const queryClient = useQueryClient();
-  const { mutate, isPending } = useMutation({
+
+  //create mutate
+  const { mutate: createCabin, isPending: isCreating } = useMutation({
     mutationFn: createCabins,
     onSuccess: () => {
       toast.success("New cabin successfullt created");
       queryClient.invalidateQueries({ queryKey: ["cabins"] });
       reset(); //useForm 초기화
     },
-    onError: (err) => toast.success(err.message),
+    onError: (err) => toast.error(err.message),
   });
 
+  //edit mutate
+  const { mutate: editCabin, isPending: isEditing } = useMutation({
+    mutationFn: editCabins,
+    onSuccess: () => {
+      toast.success("New cabin successfullt edited");
+      queryClient.invalidateQueries({ queryKey: ["cabins"] });
+      reset(); //useForm 초기화
+    },
+    onError: (err) => toast.error(err.message),
+  });
+
+  //submit 시점 이후 여기서 분기처리
   const onSubmit: SubmitHandler<Inputs> = (data) => {
-    //따로 파라미터가 없어도 넣은것으로 인식.
-    mutate(data);
+    if (canEdit) {
+      cabin.name = data.name;
+      cabin.maxCapacity = data.maxCapacity;
+      cabin.regularPrice = data.regularPrice;
+      cabin.discount = data.discount;
+      cabin.description = data.description;
+      cabin.image = data.editImage; //여기는 잠시 패스
+
+      editCabin({ cabin });
+    } else createCabin({ ...data });
   };
 
   const onError: SubmitErrorHandler<Inputs> | undefined = (errors) => {
     console.log(errors);
   };
+
+  const isWorking = isCreating || isEditing;
 
   return (
     <Form onSubmit={handleSubmit(onSubmit, onError)}>
@@ -55,7 +98,7 @@ function CreateCabinForm() {
           <Input
             type='text'
             id='name'
-            disabled={isPending}
+            disabled={isWorking}
             register={register("name", {
               required: "This field is required",
               min: {
@@ -78,7 +121,7 @@ function CreateCabinForm() {
           <Input
             type='number'
             id='maxCapacity'
-            disabled={isPending}
+            disabled={isWorking}
             register={register("maxCapacity", {
               required: "This field is required",
             })}
@@ -97,7 +140,7 @@ function CreateCabinForm() {
           <Input
             type='number'
             id='regularPrice'
-            disabled={isPending}
+            disabled={isWorking}
             register={register("regularPrice", {
               required: "This field is required",
             })}
@@ -116,7 +159,7 @@ function CreateCabinForm() {
           <Input
             type='number'
             id='discount'
-            disabled={isPending}
+            disabled={isWorking}
             register={register("discount", {
               required: "This field is required",
               validate: (value) =>
@@ -138,7 +181,7 @@ function CreateCabinForm() {
           <Textarea
             id='description'
             defaultValue=''
-            disabled={isPending}
+            disabled={isWorking}
             register={register("description", {
               required: "This field is required",
             })}
@@ -159,7 +202,7 @@ function CreateCabinForm() {
             accept='image/*'
             type='file'
             register={register("image", {
-              required: "This field is required",
+              required: canEdit ? false : "This field is required",
             })}
           />
         }
@@ -172,8 +215,8 @@ function CreateCabinForm() {
             <Button variations='secondary' size='medium' type='reset'>
               Cancel
             </Button>
-            <Button disabled={isPending} variations='secondary' size='medium'>
-              Edit cabin
+            <Button disabled={isWorking} variations='secondary' size='medium'>
+              {canEdit ? "Edit cabin" : "Add cabin"}
             </Button>
           </>
         }
