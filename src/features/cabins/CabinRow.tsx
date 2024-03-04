@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { HiPencil, HiTrash } from "react-icons/hi2";
 import ConfirmDelete from "../../ui/ConfirmDelete";
+import Menus from "../../ui/Menus";
 import Modal from "../../ui/Modal";
 import { formatCurrency } from "../../utils/helpers";
 import styles from "./CabinRow.module.css";
@@ -94,6 +95,27 @@ export default function CabinRow({ cabin }: { cabin: CabinProp }) {
               </>
             }
           />
+          <Menus.Menu>
+            <Menus.Toggle id={cabin.id} />
+            <Menus.List id={cabin.id}>
+              <Menus.Button
+                children={
+                  <>
+                    <HiPencil />
+                    {"EDIT"}
+                  </>
+                }
+              />
+              <Menus.Button
+                children={
+                  <>
+                    <HiPencil />
+                    {"DELETE"}
+                  </>
+                }
+              />
+            </Menus.List>
+          </Menus.Menu>
         </div>
       </div>
     </>
