@@ -47,7 +47,10 @@ function Open({
 }) {
   const { open } = useContext(ModalContext);
   return cloneElement(children as React.ReactElement, {
-    onClick: () => open(opensWindowName),
+    //해당 위젯에 아래 기능을 부여함
+    onClick: () => {
+      return open(opensWindowName);
+    },
   });
 }
 
@@ -70,7 +73,11 @@ function Window({
           className={styles.button}
           children={<HiXMark />}
         />
-        {children}
+        <div>
+          {cloneElement(children as React.ReactElement, {
+            onCloseModal: close,
+          })}
+        </div>
       </div>
     </div>,
     document.body

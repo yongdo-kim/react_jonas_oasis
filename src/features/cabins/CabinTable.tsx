@@ -1,5 +1,6 @@
 import styles from "./CabinTable.module.css";
 
+import Menus from "../../ui/Menus";
 import Spinner from "../../ui/Spinner";
 import CabinRow from "./CabinRow";
 import useCabins from "./useCabins";
@@ -9,7 +10,7 @@ export default function CabinTable() {
   if (isLoading) return <Spinner />;
 
   return (
-    <>
+    <Menus>
       <div role='table' className={styles.table}>
         <div className={styles.tableHeader}>
           <div></div>
@@ -23,6 +24,6 @@ export default function CabinTable() {
           <CabinRow cabin={cabin} key={cabin.id} />
         ))}
       </div>
-    </>
+    </Menus>
   );
 }

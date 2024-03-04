@@ -1,5 +1,7 @@
 import { useState } from "react";
-import { HiPencil, HiSquare2Stack, HiTrash } from "react-icons/hi2";
+import { HiPencil, HiTrash } from "react-icons/hi2";
+import ConfirmDelete from "../../ui/ConfirmDelete";
+import Modal from "../../ui/Modal";
 import { formatCurrency } from "../../utils/helpers";
 import styles from "./CabinRow.module.css";
 import CreateCabinForm from "./CreateCabinForm";
@@ -48,18 +50,52 @@ export default function CabinRow({ cabin }: { cabin: CabinProp }) {
           <span>&mdash;</span>
         )}
         <div>
-          <button>
-            <HiSquare2Stack />
-          </button>
-          <button onClick={() => setShowForm(!showForm)}>
-            <HiPencil />
-          </button>
-          <button disabled={isDeleting} onClick={() => deleteCabin(cabin.id)}>
-            <HiTrash />
-          </button>
+          <Modal
+            children={
+              <>
+                <Modal.Open
+                  children={
+                    <button onClick={() => setShowForm(!showForm)}>
+                      <HiPencil />
+                    </button>
+                  }
+                  opensWindowName='edit'
+                />
+                <Modal.Window
+                  children={<CreateCabinForm cabin={cabin} />}
+                  opensWindowName='edit'
+                />
+              </>
+            }
+          />
+
+          <Modal
+            children={
+              <>
+                <Modal.Open
+                  children={
+                    <button disabled={isDeleting}>
+                      <HiTrash />
+                    </button>
+                  }
+                  opensWindowName='delete'
+                />
+                <Modal.Window
+                  children={
+                    <ConfirmDelete
+                      resourceName='cabins'
+                      disabled={false}
+                      onConfirm={() => deleteCabin(cabin.id)}
+                      onCloseModal={() => {}}
+                    />
+                  }
+                  opensWindowName='delete'
+                />
+              </>
+            }
+          />
         </div>
       </div>
-      {showForm && <CreateCabinForm cabin={cabin} />}
     </>
   ) : (
     <div></div>
