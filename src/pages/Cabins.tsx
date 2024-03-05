@@ -5,6 +5,7 @@ import Column from "../ui/Column";
 import Heading from "../ui/Heading";
 import Row from "../ui/Row";
 import AddCabin from "../features/cabins/AddCabin";
+import CabinTableOperations from "../features/cabins/CabinTableOperations";
 
 
 function Cabins() {
@@ -22,7 +23,7 @@ function Cabins() {
         }}
       >
         <Heading style='h1'>All cabins</Heading>
-        <p>TEST</p>
+        <CabinTableOperations/>
       </Row>
       <Column>
         <Row style={{ maxWidth: "80rem" }}>
