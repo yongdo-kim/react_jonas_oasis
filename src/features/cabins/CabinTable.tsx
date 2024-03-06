@@ -11,6 +11,7 @@ export default function CabinTable() {
   const [searchParams] = useSearchParams();
   if (isLoading) return <Spinner />;
 
+  //url의 쿼리파마티러 기준으로 filter를 진행
   const filterValue = searchParams.get("discount") || "all";
   let filteredCabins;
   if (filterValue == "all") filteredCabins = cabins;
@@ -20,6 +21,26 @@ export default function CabinTable() {
     filteredCabins = cabins?.filter(
       (cabin) => cabin.discount && cabin.discount > 0
     );
+
+  //url의 쿼리파마티러 기준으로 sortBy를 진행
+
+  const sortBy = searchParams.get("sortBy") || "startDate-asc";
+  const [field, direction] = sortBy.split("-");
+  const modifier = direction === "asc" ? 1 : -1;
+  let sortedCabins;
+  if (field == "startDate") {
+    sortedCabins = filteredCabins?.sort(
+      (a, b) =>
+        (new Date(a.created_at).getTime() - new Date(b.created_at).getTime()) *
+        modifier
+    );
+  }
+
+  if (field == "totalPrice") {
+    sortedCabins = filteredCabins?.sort(
+      (a, b) => (a.regularPrice! - b.regularPrice!) * modifier
+    );
+  }
 
   return (
     <Menus>
@@ -32,7 +53,7 @@ export default function CabinTable() {
           <div>Discount</div>
           <div></div>
         </div>
-        {filteredCabins?.map((cabin) => (
+        {sortedCabins?.map((cabin) => (
           <CabinRow cabin={cabin} key={cabin.id} />
         ))}
       </div>

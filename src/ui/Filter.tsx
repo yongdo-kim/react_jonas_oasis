@@ -23,6 +23,7 @@ export default function Filter({ filterField, options }: FilterProps) {
           className={`${styles.button} ${
             option.value === currentFilter ? styles.active : ""
           }`}
+          disabled={option.value === currentFilter}
           onClick={() => handleClick(option.value)}
         >
           {option.label}
