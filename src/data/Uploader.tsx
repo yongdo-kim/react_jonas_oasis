@@ -46,21 +46,29 @@ async function createBookings() {
     .from("guests")
     .select("id")
     .order("id");
-  const allGuestIds = guestsIds.map((cabin) => cabin.id);
+
+  const allGuestIds = guestsIds?.map((guestId) => guestId.id);
+
   const { data: cabinsIds } = await supabase
     .from("cabins")
     .select("id")
     .order("id");
-  const allCabinIds = cabinsIds.map((cabin) => cabin.id);
+  const allCabinIds = cabinsIds?.map((cabin) => cabin.id);
 
   const finalBookings = bookings.map((booking) => {
     // Here relying on the order of cabins, as they don't have and ID yet
     const cabin = cabins.at(booking.cabinId - 1);
-    const numNights = subtractDates(booking.endDate, booking.startDate);
-    const cabinPrice = numNights * (cabin.regularPrice - cabin.discount);
+    const numNights = subtractDates({
+      dateStr1: booking.endDate,
+      dateStr2: booking.startDate,
+    });
+
+    const cabinPrice = numNights * (cabin!.regularPrice - cabin!.discount);
+    console.log("cabinPrice", cabinPrice);
     const extrasPrice = booking.hasBreakfast
       ? numNights * 15 * booking.numGuests
       : 0; // hardcoded breakfast price
+    console.log("extrasPrice", extrasPrice);
     const totalPrice = cabinPrice + extrasPrice;
 
     let status;
@@ -81,20 +89,20 @@ async function createBookings() {
       !isToday(new Date(booking.startDate))
     )
       status = "checked-in";
-
+    console.log("booking", booking);
     return {
       ...booking,
       numNights,
       cabinPrice,
       extrasPrice,
       totalPrice,
-      guestId: allGuestIds.at(booking.guestId - 1),
-      cabinId: allCabinIds.at(booking.cabinId - 1),
+      guestId: allGuestIds!.at(booking.guestId - 1),
+      cabinId: allCabinIds!.at(booking.cabinId - 1),
       status,
     };
   });
 
-  console.log(finalBookings);
+  console.log("finalBookings", finalBookings);
 
   const { error } = await supabase.from("bookings").insert(finalBookings);
   if (error) console.log(error.message);

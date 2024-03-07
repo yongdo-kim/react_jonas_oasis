@@ -7,7 +7,6 @@ import Row from "../ui/Row";
 import AddCabin from "../features/cabins/AddCabin";
 import CabinTableOperations from "../features/cabins/CabinTableOperations";
 
-
 function Cabins() {
   useEffect(() => {
     getCabins().then((data) => console.log(data));
@@ -22,8 +21,8 @@ function Cabins() {
           maxWidth: "80rem",
         }}
       >
-        <Heading style='h1'>All cabins</Heading>
-        <CabinTableOperations/>
+        <Heading style="h1">All cabins</Heading>
+        <CabinTableOperations />
       </Row>
       <Column>
         <Row style={{ maxWidth: "80rem" }}>
