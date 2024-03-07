@@ -5,6 +5,19 @@
   font-weight: 600;
   padding: 0.4rem 1.2rem;
   border-radius: 100px;
-  /* color: var(--color-$ {(props) => props.type}-700);
-  background-color: var(--color-$ {(props) => props.type}-100); */
+}
+
+.checked-in {
+  color: var(--color-green-700);
+  background-color: var(--color-green-100);
+}
+
+.checked-out {
+  color: var(--color-silver-700);
+  background-color: var(--color-silver-100);
+}
+
+.unconfirmed {
+  color: var(--color-blue-700);
+  background-color: var(--color-blue-100);
 }

@@ -45,13 +45,6 @@ function BookingRow({
   booking: BookingProps;
   guest: GuestProps;
 }) {
-  
-  const statusToTagName = {
-    unconfirmed: "blue",
-    "checked-in": "green",
-    "checked-out": "silver",
-  };
-
   return (
     <div className={styles.tableRow}>
       <div className={styles.cabin}>{cabin.name}</div>
@@ -75,7 +68,10 @@ function BookingRow({
       </div>
 
       {/* type={statusToTagName[booking.status!]} */}
-      <Tag children={booking.status?.replace("-", " ")} />
+      <Tag
+        status={booking.status!}
+        children={booking.status?.replace("-", " ")}
+      />
 
       <div className={styles.amount}>
         {formatCurrency(booking.totalPrice ?? 0)}
