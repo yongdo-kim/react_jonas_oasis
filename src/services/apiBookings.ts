@@ -1,20 +1,24 @@
+import { TFilter, TSortBy } from "../features/bookings/useBookings";
 import { getToday } from "../utils/helpers";
 import supabase from "./supabase";
 
 export async function getBookings({
-  field,
-  value,
+  filter,
+  sortBy,
 }: {
-  field: string;
-  value: string;
+  filter: TFilter;
+  sortBy: TSortBy;
 }) {
   let query = supabase
     .from("bookings")
     .select(
       "*,created_at, startDate, endDate, numNights, numGuests, status, totalPrice,  cabins(name), guests(fullName, email)"
     );
+  const { field, value } = filter;
 
   if (field !== "" && value !== "") query = query.eq(field, value);
+  if (sortBy.field !== "all")
+    query.order(sortBy.field, { ascending: sortBy.direction === "asc" });
   const { data, error } = await query;
 
   if (error) {
