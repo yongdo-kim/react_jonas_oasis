@@ -12,7 +12,6 @@ function BookingTable() {
   if (!bookings) return <Empty resource={"Bookings"} />;
   if (isLoading) return <Spinner />;
 
-  console.log(bookings);
   return (
     <Menus>
       <div className={styles.table}>

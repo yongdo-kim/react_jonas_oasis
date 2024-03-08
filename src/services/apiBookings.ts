@@ -12,13 +12,16 @@ export async function getBookings({
   let query = supabase
     .from("bookings")
     .select(
-      "*,created_at, startDate, endDate, numNights, numGuests, status, totalPrice,  cabins(name), guests(fullName, email)"
+      "*,created_at, startDate, endDate, numNights, numGuests, status, totalPrice,  cabins(*), guests(fullName, email)"
     );
-  const { field, value } = filter;
+  const { field: filterField, value: filterValue } = filter;
+  const { field: sortField, direction: sortValue } = sortBy;
 
-  if (field !== "" && value !== "") query = query.eq(field, value);
-  if (sortBy.field !== "all")
-    query.order(sortBy.field, { ascending: sortBy.direction === "asc" });
+  if (filterValue !== "all" && filterField !== "" && filterValue !== "") {
+    query = query.eq(filterField, filterValue);
+  }
+  console.log("sortBy.field,", sortField, sortValue);
+  query.order(sortBy.field, { ascending: sortBy.direction === "asc" });
   const { data, error } = await query;
 
   if (error) {
