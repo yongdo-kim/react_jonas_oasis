@@ -44,7 +44,7 @@ export default function CabinTable() {
 
   return (
     <Menus>
-      <div role='table' className={styles.table}>
+      <div role="table" className={styles.table}>
         <div className={styles.tableHeader}>
           <div></div>
           <div>Cabin</div>

@@ -1,5 +1,6 @@
 import Empty from "../../ui/Empty";
 import Menus from "../../ui/Menus";
+import Pagination from "../../ui/Pagination";
 import Spinner from "../../ui/Spinner";
 import BookingRow from "./BookingRow";
 
@@ -33,6 +34,10 @@ function BookingTable() {
               guest={booking.guests!}
             />
           ))}
+        </div>
+
+        <div>
+          <Pagination />
         </div>
       </div>
     </Menus>
