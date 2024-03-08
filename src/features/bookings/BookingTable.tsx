@@ -26,7 +26,7 @@ function BookingTable() {
         </div>
 
         <div className={styles.tableBody}>
-          {bookings?.map((booking) => (
+          {bookings.data?.map((booking) => (
             <BookingRow
               key={booking.id}
               booking={booking}
@@ -37,7 +37,7 @@ function BookingTable() {
         </div>
 
         <div>
-          <Pagination />
+          <Pagination count={bookings.count!} />
         </div>
       </div>
     </Menus>

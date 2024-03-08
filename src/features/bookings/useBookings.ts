@@ -26,7 +26,9 @@ export default function useBookings() {
   const sortByRaw = searchParams.get("sortBy") || "startDate-desc";
   const [field, direction] = sortByRaw.split("-");
   const sortBy = { field, direction };
-  console.log("sortBy", sortBy);
+
+  //pagination 기준 filter
+  const page = !searchParams.get("page") ? 1 : Number(searchParams.get("page"));
 
   const {
     isLoading,
@@ -35,9 +37,9 @@ export default function useBookings() {
   } = useQuery({
     //변화를 줘도 바뀌지 않는 이유는 쿼리키값을 캐싱 풀지 않았기 때문임.
     //queryKey에 filter를 넣어서 url 변경시 마다 데이터를 가져오도록
-    queryKey: ["bookings", filter, sortBy],
-    queryFn: () => getBookings({ filter, sortBy }),
+    queryKey: ["bookings", filter, sortBy, page],
+    queryFn: () => getBookings({ filter, sortBy,page }),
   });
 
-  return { isLoading, bookings, error };
+  return { isLoading, bookings, count: bookings?.count, error };
 }
