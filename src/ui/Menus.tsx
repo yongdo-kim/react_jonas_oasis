@@ -68,9 +68,9 @@ function Toggle({ id }: { id: number }) {
   }
 
   return (
-    <div className={styles.toggle} onClick={handleClick}>
+    <button className={styles.toggle} onClick={handleClick}>
       <HiEllipsisVertical />
-    </div>
+    </button>
   );
 }
 
@@ -104,9 +104,9 @@ function Button({
   }
 
   return (
-    <li className={styles.button} onClick={handleClick}>
+    <button className={styles.button} onClick={handleClick}>
       {children}
-    </li>
+    </button>
   );
 }
 

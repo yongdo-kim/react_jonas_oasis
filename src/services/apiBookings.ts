@@ -1,4 +1,5 @@
 import { TFilter, TSortBy } from "../features/bookings/useBookings";
+import { UpdateCheckingProps } from "../features/bookings/useChecking";
 import { PAGE_SIZE } from "../ui/Pagination";
 import { getToday } from "../utils/helpers";
 import supabase from "./supabase";
@@ -43,7 +44,7 @@ export async function getBookings({
   return { count, data };
 }
 
-export async function getBooking({ id }: { id: number }) {
+export async function getBooking(id: string) {
   const { data, error } = await supabase
     .from("bookings")
     .select("*, cabins(*), guests(*)")
@@ -112,20 +113,26 @@ export async function getStaysTodayActivity() {
   return data;
 }
 
-// export async function updateBooking(id, obj) {
-//   const { data, error } = await supabase
-//     .from("bookings")
-//     .update(obj)
-//     .eq("id", id)
-//     .select()
-//     .single();
+export async function updateBooking({
+  id,
+  obj,
+}: {
+  id: string;
+  obj: UpdateCheckingProps;
+}) {
+  const { data, error } = await supabase
+    .from("bookings")
+    .update(obj)
+    .eq("id", id)
+    .select()
+    .single();
 
-//   if (error) {
-//     console.error(error);
-//     throw new Error("Booking could not be updated");
-//   }
-//   return data;
-// }
+  if (error) {
+    console.error(error);
+    throw new Error("Booking could not be updated");
+  }
+  return data;
+}
 
 export async function deleteBooking({ id }: { id: number }) {
   // REMEMBER RLS POLICIES
