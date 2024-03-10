@@ -34,20 +34,21 @@ export async function login({
   return data;
 }
 
-// export async function getCurrentUser() {
-//   const { data: session } = await supabase.auth.getSession();
-//   if (!session.session) return null;
+export async function getCurrentUser() {
+  const { data: session } = await supabase.auth.getSession(); //로컬 세션 데이터 가졍몸
 
-//   const { data, error } = await supabase.auth.getUser();
+  if (!session.session) return null;
 
-//   if (error) throw new Error(error.message);
-//   return data?.user;
-// }
+  const { data, error } = await supabase.auth.getUser();
 
-// export async function logout() {
-//   const { error } = await supabase.auth.signOut();
-//   if (error) throw new Error(error.message);
-// }
+  if (error) throw new Error(error.message);
+  return data?.user;
+}
+
+export async function logout() {
+  const { error } = await supabase.auth.signOut();
+  if (error) throw new Error(error.message);
+}
 
 // export async function updateCurrentUser({ password, fullName, avatar }) {
 //   // 1. Update password OR fullName

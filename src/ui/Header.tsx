@@ -2,7 +2,7 @@ import { ReactNode } from "react";
 import styles from "./Header.module.css";
 
 type HeaderProps = {
-  children: ReactNode;
+  children?: ReactNode;
 };
 
 export default function Header({ children }: HeaderProps) {

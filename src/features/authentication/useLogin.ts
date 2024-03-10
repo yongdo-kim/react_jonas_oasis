@@ -11,6 +11,7 @@ export function useLogin() {
     mutationFn: ({ email, password }: { email: string; password: string }) =>
       loginApi({ email, password }),
     onSuccess: (user) => {
+      //리액트 쿼리로 저장. 
       queryClient.setQueryData(["user"], user.user);
       navigate("/dashboard", { replace: true });
     },

@@ -14,6 +14,7 @@ import PageNotFound from "./pages/PageNotFound";
 import Settings from "./pages/Settings";
 import Users from "./pages/Users";
 import AppLayout from "./ui/AppLayout";
+import ProtectedRoute from "./ui/ProtectedRoute";
 
 const queryClient = new QueryClient({
   defaultOptions: {
@@ -30,7 +31,7 @@ function App() {
         <BrowserRouter>
           <Routes>
             {/*  AppLayout을 기반으로 그 안에 <Outlet/>이 존재함 */}
-            <Route element={<AppLayout />}>
+            <Route element={<ProtectedRoute children={<AppLayout />} />}>
               <Route index element={<Navigate replace to='dashboard' />} />
               <Route path='dashboard' element={<Dashboard />} />
               <Route path='bookings' element={<Bookings />} />
