@@ -1,7 +1,12 @@
+import SignupForm from "../features/authentication/SignupForm";
 import Heading from "../ui/Heading";
 
 function NewUsers() {
-  return <Heading style="h1">Create a new user</Heading>;
+  return (
+    <Heading style='h1'>
+      <SignupForm />
+    </Heading>
+  );
 }
 
 export default NewUsers;
