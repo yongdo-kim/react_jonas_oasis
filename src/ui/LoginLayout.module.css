@@ -1,6 +1,7 @@
 .layout {
   min-height: 100vh;
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
   gap: 3.2rem;
