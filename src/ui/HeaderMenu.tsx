@@ -2,6 +2,7 @@ import { HiOutlineUser } from "react-icons/hi2";
 import { useNavigate } from "react-router-dom";
 import Logout from "../features/authentication/Logout";
 import ButtonIcon from "./ButtonIcon";
+import DarkMode from "./DarkModeToggle";
 import styles from "./HeaderMenu.module.css";
 
 function HeaderMenu() {
@@ -14,7 +15,9 @@ function HeaderMenu() {
           <HiOutlineUser />
         </ButtonIcon>
       </li>
-
+      <li>
+        <DarkMode />
+      </li>
       <li>
         <Logout />
       </li>
