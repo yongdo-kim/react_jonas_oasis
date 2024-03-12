@@ -1,9 +1,9 @@
 import { useForm } from "react-hook-form";
 import Button from "../../ui/Button";
+import Error from "../../ui/Error";
 import Form from "../../ui/Form";
 import FormRow from "../../ui/FormRow";
 import Input from "../../ui/Input";
-import Error from "../../ui/Error";
 import useUpdateUser from "./useUpdateUser";
 
 export type UpdatePasswordInputs = {
@@ -20,21 +20,19 @@ function UpdatePasswordForm() {
   const { updateUser, isUpdating } = useUpdateUser();
 
   function onSubmit() {
-    const newPassword = getValues().password;
-    console.log(getValues());
-    //updateUser({ password: newPassword }, { onSuccess: () => reset() });
+    updateUser({ password: getValues().password });
   }
 
   return (
     <Form onSubmit={handleSubmit(onSubmit)}>
       <FormRow
-        label="Password (min 8 characters)"
+        label='Password (min 8 characters)'
         error={<Error errorText={errors.password?.message ?? ""} />}
       >
         <Input
-          type="password"
-          id="password"
-          autoComplete="current-password"
+          type='password'
+          id='password'
+          autoComplete='current-password'
           disabled={isUpdating}
           register={register("password", {
             required: "This field is required",
@@ -47,13 +45,13 @@ function UpdatePasswordForm() {
       </FormRow>
 
       <FormRow
-        label="Confirm password"
+        label='Confirm password'
         error={<Error errorText={errors.passwordConfirm?.message ?? ""} />}
       >
         <Input
-          type="password"
-          autoComplete="new-password"
-          id="passwordConfirm"
+          type='password'
+          autoComplete='new-password'
+          id='passwordConfirm'
           disabled={isUpdating}
           register={register("passwordConfirm", {
             required: "This field is required",
@@ -63,7 +61,7 @@ function UpdatePasswordForm() {
         />
       </FormRow>
       <FormRow>
-        <Button onClick={() => reset()} type="reset" variations="secondary">
+        <Button onClick={() => reset()} type='reset' variations='secondary'>
           Cancel
         </Button>
         <Button disabled={isUpdating}>Update password</Button>

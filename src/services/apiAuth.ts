@@ -65,19 +65,14 @@ export async function updateCurrentUser({
 }: {
   password?: string;
   fullName?: string;
-  avatar?: string;
+  avatar?: FileList;
 }) {
-  //TODO: 여기 수정해야함 
-
   // 1. Update password OR fullName
-  let updateData;
-  if (password) updateData = { password };
-  if (fullName) updateData = { data: { fullName } };
-
   const { data, error } = await supabase.auth.updateUser({
-    data:{
-      'user_metadata':
-    }
+    password,
+    data: {
+      fullName,
+    },
   });
 
   if (error) throw new Error(error.message);
@@ -88,7 +83,7 @@ export async function updateCurrentUser({
 
   const { error: storageError } = await supabase.storage
     .from("avatars")
-    .upload(fileName, avatar);
+    .upload(fileName, avatar[0]);
 
   if (storageError) throw new Error(storageError.message);
 

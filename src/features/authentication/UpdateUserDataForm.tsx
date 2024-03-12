@@ -1,14 +1,12 @@
-import { useState } from "react";
-
 import Button from "../../ui/Button";
 import FileInput from "../../ui/FileInput";
 import Form from "../../ui/Form";
 import FormRow from "../../ui/FormRow";
 import Input from "../../ui/Input";
 
-import { useUser } from "./useUser";
 import { useForm } from "react-hook-form";
 import useUpdateUser from "./useUpdateUser";
+import { useUser } from "./useUser";
 
 export type UpdateUserInputs = {
   email: string;
@@ -19,36 +17,41 @@ export type UpdateUserInputs = {
 function UpdateUserDataForm() {
   const { user } = useUser();
 
-  const { register, handleSubmit, formState, getValues, reset } =
+  const { register, handleSubmit, getValues, reset } =
     useForm<UpdateUserInputs>();
   const { updateUser, isUpdating } = useUpdateUser();
   function onSubmit() {
-    console.log(getValues().avatar[0].name);
+    updateUser(
+      { fullName: getValues().fullName, avatar: getValues().avatar },
+      {
+        onSuccess: () => reset(),
+      }
+    );
   }
 
   return (
     <Form onSubmit={handleSubmit(onSubmit)}>
-      <FormRow label="Email address">
+      <FormRow label='Email address'>
         <Input
           value={user?.email}
           disabled
           register={register("email")}
-          id="email"
+          id='email'
         />
       </FormRow>
-      <FormRow label="Full name">
+      <FormRow label='Full name'>
         <Input
-          type="text"
+          type='text'
           register={register("fullName")}
-          id="fullName"
+          id='fullName'
           disabled={isUpdating}
         />
       </FormRow>
-      <FormRow label="Avatar image">
+      <FormRow label='Avatar image'>
         <FileInput
-          id="avatar"
-          type="file"
-          accept="image/*"
+          id='avatar'
+          type='file'
+          accept='image/*'
           disabled={isUpdating}
           register={register("avatar")}
         />
@@ -56,7 +59,7 @@ function UpdateUserDataForm() {
       <FormRow>
         <Button
           onClick={() => reset()}
-          variations="secondary"
+          variations='secondary'
           disabled={isUpdating}
         >
           Cancel

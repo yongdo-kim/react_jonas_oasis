@@ -9,6 +9,7 @@ export default function useUpdateUser() {
     mutationFn: updateCurrentUser,
     onSuccess: () => {
       toast.success("User Info Updated");
+
       queryClient.invalidateQueries({ queryKey: ["user"] });
     },
     onError: (err) => toast.error(err.message),

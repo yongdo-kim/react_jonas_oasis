@@ -13,8 +13,7 @@ export type LoginInputs = {
 };
 
 function LoginForm() {
-  const { register, handleSubmit, formState, getValues, reset } =
-    useForm<LoginInputs>();
+  const { register, handleSubmit, getValues } = useForm<LoginInputs>();
 
   const { login, isLogining } = useLogin();
   function onSubmit() {
