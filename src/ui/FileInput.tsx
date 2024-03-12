@@ -4,7 +4,7 @@ import { Inputs } from "../features/cabins/CreateCabinForm";
 import styles from "./FileInput.module.css";
 
 type FileInputProps = {
-  register: UseFormRegisterReturn<keyof Inputs>;
+  register: UseFormRegisterReturn;
 } & InputHTMLAttributes<HTMLInputElement>;
 
 export default function FileInput({ register, ...rest }: FileInputProps) {
