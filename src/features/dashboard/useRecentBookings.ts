@@ -3,6 +3,12 @@ import { subDays } from "date-fns";
 import { useSearchParams } from "react-router-dom";
 import { getBookingsAfterDate } from "../../services/apiBookings";
 
+export type RecentBookingsProps = {
+  created_at: string;
+  totalPrice: number | null;
+  extrasPrice: number | null;
+};
+
 export function useRecentBookings() {
   const [searchParams] = useSearchParams();
 

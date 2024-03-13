@@ -1,12 +1,8 @@
-import { ReactNode } from "react";
 import styles from "./DashboardLayout.module.css";
 import { useRecentBookings } from "./useRecentBookings";
 import Spinner from "../../ui/Spinner";
 import { useRecentStays } from "./useRecentStays";
-
-type DashboardLayoutProps = {
-  children: ReactNode;
-};
+import Stats from "./Stats";
 
 export default function DashboardLayout() {
   const { isRecentBooking, recentBookings } = useRecentBookings();
@@ -14,11 +10,19 @@ export default function DashboardLayout() {
 
   if (isRecentBooking || isRecentStay) <Spinner />;
 
-  console.log("recentBookings", recentStays);
+  console.log("recentBookings", recentBookings);
   console.log("recentStays", recentStays);
 
   return (
     <div className={styles.styledDashboardLayout}>
+      {recentBookings && recentStays && (
+        <Stats
+          bookings={recentBookings}
+          numDays={0}
+          cabinCount={0}
+          confirmedStays={recentStays}
+        />
+      )}
       <div>Statistics</div>
       <div>Today's activity</div>
       <div>Chart stay durations</div>
