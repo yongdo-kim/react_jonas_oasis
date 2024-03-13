@@ -3,23 +3,22 @@ import { useRecentBookings } from "./useRecentBookings";
 import Spinner from "../../ui/Spinner";
 import { useRecentStays } from "./useRecentStays";
 import Stats from "./Stats";
+import useCabins from "../cabins/useCabins";
 
 export default function DashboardLayout() {
-  const { isRecentBooking, recentBookings } = useRecentBookings();
+  const { isRecentBooking, recentBookings, numDays } = useRecentBookings();
   const { isRecentStay, recentStays } = useRecentStays();
+  const { cabins } = useCabins();
 
   if (isRecentBooking || isRecentStay) <Spinner />;
 
-  console.log("recentBookings", recentBookings);
-  console.log("recentStays", recentStays);
-
   return (
     <div className={styles.styledDashboardLayout}>
-      {recentBookings && recentStays && (
+      {recentBookings && recentStays && cabins && (
         <Stats
           bookings={recentBookings}
-          numDays={0}
-          cabinCount={0}
+          numDays={numDays}
+          cabinCount={cabins.length}
           confirmedStays={recentStays}
         />
       )}

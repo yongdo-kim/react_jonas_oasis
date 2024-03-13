@@ -28,7 +28,7 @@ function Stats({ bookings, confirmedStays, numDays, cabinCount }: StatsProps) {
 
   // 3.
   const checkins = confirmedStays.length;
-
+  
   // 4.
   const occupation =
     confirmedStays.reduce(
