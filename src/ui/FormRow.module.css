@@ -26,6 +26,7 @@
 
 .label {
   font-weight: 500;
+  color: var(--color-grey-900);
 }
 
 .error {

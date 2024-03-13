@@ -31,27 +31,27 @@ function UpdateUserDataForm() {
 
   return (
     <Form onSubmit={handleSubmit(onSubmit)}>
-      <FormRow label='Email address'>
+      <FormRow label="Email address">
         <Input
           value={user?.email}
           disabled
           register={register("email")}
-          id='email'
+          id="email"
         />
       </FormRow>
-      <FormRow label='Full name'>
+      <FormRow label="Full name">
         <Input
-          type='text'
+          type="text"
           register={register("fullName")}
-          id='fullName'
+          id="fullName"
           disabled={isUpdating}
         />
       </FormRow>
-      <FormRow label='Avatar image'>
+      <FormRow label="Avatar image">
         <FileInput
-          id='avatar'
-          type='file'
-          accept='image/*'
+          id="avatar"
+          type="file"
+          accept="image/*"
           disabled={isUpdating}
           register={register("avatar")}
         />
@@ -59,7 +59,7 @@ function UpdateUserDataForm() {
       <FormRow>
         <Button
           onClick={() => reset()}
-          variations='secondary'
+          variations="secondary"
           disabled={isUpdating}
         >
           Cancel

@@ -1,5 +1,7 @@
 import { ReactNode, createContext, useContext } from "react";
 import { useLocalStorageState } from "../hooks/useLocalStorageState";
+import "../App.module.css";
+import styles from "../App.module.css";
 
 export type CreateContextProps = {
   isDarkMode: boolean;
@@ -25,7 +27,9 @@ export function DarkModeProvider({ children }: DarkModeProviderProps) {
     <DarkModContext.Provider
       value={{ isDarkMode: isDarkMode, toggleDarkMode: ToggleDarkMode }}
     >
-      {children}
+      <div className={isDarkMode ? styles.darkMode : styles.lightMode}>
+        {children}
+      </div>
     </DarkModContext.Provider>
   );
 }
