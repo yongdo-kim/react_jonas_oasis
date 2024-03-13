@@ -70,11 +70,11 @@ function CreateCabinForm({ cabin }: { cabin?: CabinProp }) {
   return (
     <Form onSubmit={handleSubmit(onSubmit, onError)}>
       <FormRow
-        label={<Label text='Cabin name' htmlFor={"name"} />}
+        label={<Label text="Cabin name" htmlFor={"name"} />}
         children={
           <Input
-            type='text'
-            id='name'
+            type="text"
+            id="name"
             disabled={isWorking}
             register={register("name", {
               required: "This field is required",
@@ -93,11 +93,11 @@ function CreateCabinForm({ cabin }: { cabin?: CabinProp }) {
       />
 
       <FormRow
-        label={<Label text='MaxCapacity' htmlFor={"maxCapacity"} />}
+        label={<Label text="MaxCapacity" htmlFor={"maxCapacity"} />}
         children={
           <Input
-            type='number'
-            id='maxCapacity'
+            type="number"
+            id="maxCapacity"
             disabled={isWorking}
             register={register("maxCapacity", {
               required: "This field is required",
@@ -112,11 +112,11 @@ function CreateCabinForm({ cabin }: { cabin?: CabinProp }) {
       />
 
       <FormRow
-        label={<Label text='RegularPrice' htmlFor={"regularPrice"} />}
+        label={<Label text="RegularPrice" htmlFor={"regularPrice"} />}
         children={
           <Input
-            type='number'
-            id='regularPrice'
+            type="number"
+            id="regularPrice"
             disabled={isWorking}
             register={register("regularPrice", {
               required: "This field is required",
@@ -131,11 +131,11 @@ function CreateCabinForm({ cabin }: { cabin?: CabinProp }) {
       />
 
       <FormRow
-        label={<Label text='Discount' htmlFor={"discount"} />}
+        label={<Label text="Discount" htmlFor={"discount"} />}
         children={
           <Input
-            type='number'
-            id='discount'
+            type="number"
+            id="discount"
             disabled={isWorking}
             register={register("discount", {
               required: "This field is required",
@@ -153,11 +153,11 @@ function CreateCabinForm({ cabin }: { cabin?: CabinProp }) {
       />
 
       <FormRow
-        label={<Label text='Description' htmlFor={"description"} />}
+        label={<Label text="Description" htmlFor={"description"} />}
         children={
           <Textarea
-            id='description'
-            defaultValue=''
+            id="description"
+            defaultValue=""
             disabled={isWorking}
             register={register("description", {
               required: "This field is required",
@@ -172,12 +172,12 @@ function CreateCabinForm({ cabin }: { cabin?: CabinProp }) {
       />
 
       <FormRow
-        label={<Label text='Cabin photo' htmlFor={"image"} />}
+        label={<Label text="Cabin photo" htmlFor={"image"} />}
         children={
           <FileInput
-            id='image'
-            accept='image/*'
-            type='file'
+            id="image"
+            accept="image/*"
+            type="file"
             register={register("image", {
               required: canEdit ? false : "This field is required",
             })}
@@ -189,10 +189,10 @@ function CreateCabinForm({ cabin }: { cabin?: CabinProp }) {
       <FormRow
         children={
           <>
-            <Button variations='secondary' size='medium' type='reset'>
+            <Button variations="secondary" size="medium" type="reset">
               Cancel
             </Button>
-            <Button disabled={isWorking} variations='secondary' size='medium'>
+            <Button disabled={isWorking} variations="secondary" size="medium">
               {canEdit ? "Edit cabin" : "Add cabin"}
             </Button>
           </>

@@ -53,7 +53,7 @@ function UpdateSettingsForm() {
         <Form onSubmit={handleSubmit(onSubmit, onError)}>
           <FormRow>
             <>
-              <Label id="min-nights">Minimum nights/booking</Label>
+              <Label text="Minimum nights/booking" id="min-nights" />
               <Input
                 type="number"
                 id="min-nights"

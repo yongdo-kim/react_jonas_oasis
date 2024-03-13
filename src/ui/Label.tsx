@@ -1,13 +1,13 @@
-import { LabelHTMLAttributes, ReactNode } from "react";
+import { LabelHTMLAttributes } from "react";
 import styles from "./Label.module.css";
 
 type LabelProps = {
-  children: ReactNode;
+  text: string;
 } & LabelHTMLAttributes<HTMLLabelElement>;
-export default function Label({ children, ...rest }: LabelProps) {
+export default function Label({ text, ...rest }: LabelProps) {
   return (
     <label className={styles.label} {...rest}>
-      {children}
+      {text}
     </label>
   );
 }
