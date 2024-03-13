@@ -1,10 +1,10 @@
-import styles from "./DashboardLayout.module.css";
-import { useRecentBookings } from "./useRecentBookings";
 import Spinner from "../../ui/Spinner";
-import { useRecentStays } from "./useRecentStays";
-import Stats from "./Stats";
 import useCabins from "../cabins/useCabins";
+import styles from "./DashboardLayout.module.css";
 import SalesChart from "./SalesChart";
+import Stats from "./Stats";
+import { useRecentBookings } from "./useRecentBookings";
+import { useRecentStays } from "./useRecentStays";
 
 export default function DashboardLayout() {
   const { isRecentBooking, recentBookings, numDays } = useRecentBookings();
@@ -26,7 +26,9 @@ export default function DashboardLayout() {
       <div>Statistics</div>
       <div>Today's activity</div>
       <div>Chart stay durations</div>
-      <SalesChart />
+      {recentBookings && (
+        <SalesChart bookings={recentBookings} numDays={numDays} />
+      )}
     </div>
   );
 }
