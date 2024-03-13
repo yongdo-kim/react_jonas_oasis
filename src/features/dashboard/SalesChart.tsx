@@ -1,15 +1,15 @@
-import styled from "styled-components";
-import DashboardBox from "./DashboardBox";
-
-const StyledSalesChart = styled(DashboardBox)`
-  grid-column: 1 / -1;
-
-  /* Hack to change grid line colors */
-  & .recharts-cartesian-grid-horizontal line,
-  & .recharts-cartesian-grid-vertical line {
-    stroke: var(--color-grey-300);
-  }
-`;
+import { useDarkMode } from "../../context/DarkModeContext";
+import Heading from "../../ui/Heading";
+import styles from "./SalesChart.module.css";
+import {
+  AreaChart,
+  Area,
+  XAxis,
+  YAxis,
+  CartesianGrid,
+  Tooltip,
+  ResponsiveContainer,
+} from "recharts";
 
 const fakeData = [
   { label: "Jan 09", totalSales: 480, extrasSales: 20 },
@@ -43,17 +43,49 @@ const fakeData = [
   { label: "Feb 06", totalSales: 1450, extrasSales: 400 },
 ];
 
-const isDarkMode = true;
-const colors = isDarkMode
-  ? {
-      totalSales: { stroke: "#4f46e5", fill: "#4f46e5" },
-      extrasSales: { stroke: "#22c55e", fill: "#22c55e" },
-      text: "#e5e7eb",
-      background: "#18212f",
-    }
-  : {
-      totalSales: { stroke: "#4f46e5", fill: "#c7d2fe" },
-      extrasSales: { stroke: "#16a34a", fill: "#dcfce7" },
-      text: "#374151",
-      background: "#fff",
-    };
+export default function SalesChart() {
+  const { isDarkMode } = useDarkMode();
+  const colors = isDarkMode
+    ? {
+        totalSales: { stroke: "#4f46e5", fill: "#4f46e5" },
+        extrasSales: { stroke: "#22c55e", fill: "#22c55e" },
+        text: "#e5e7eb",
+        background: "#18212f",
+      }
+    : {
+        totalSales: { stroke: "#4f46e5", fill: "#c7d2fe" },
+        extrasSales: { stroke: "#16a34a", fill: "#dcfce7" },
+        text: "#374151",
+        background: "#fff",
+      };
+
+  return (
+    <div className={styles.styledSalesChart}>
+      <Heading style="h2">Sales</Heading>
+      <ResponsiveContainer height={300} width="100%">
+        <AreaChart data={fakeData}>
+          <CartesianGrid strokeDasharray="4" />
+          <XAxis
+            dataKey="label"
+            tick={{ fill: colors.text }}
+            tickLine={{ stroke: colors.text }}
+          />
+          <YAxis unit="$" />
+          <Tooltip />
+          <Area
+            dataKey="totalSales"
+            type="monotone"
+            stroke={colors.totalSales.stroke}
+            fill={colors.totalSales.fill}
+          />
+          <Area
+            dataKey="extrasSales"
+            type="monotone"
+            stroke={colors.extrasSales.stroke}
+            fill={colors.extrasSales.fill}
+          />
+        </AreaChart>
+      </ResponsiveContainer>
+    </div>
+  );
+}

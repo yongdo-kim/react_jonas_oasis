@@ -4,6 +4,7 @@ import Spinner from "../../ui/Spinner";
 import { useRecentStays } from "./useRecentStays";
 import Stats from "./Stats";
 import useCabins from "../cabins/useCabins";
+import SalesChart from "./SalesChart";
 
 export default function DashboardLayout() {
   const { isRecentBooking, recentBookings, numDays } = useRecentBookings();
@@ -25,7 +26,7 @@ export default function DashboardLayout() {
       <div>Statistics</div>
       <div>Today's activity</div>
       <div>Chart stay durations</div>
-      <div>Chart sales</div>
+      <SalesChart />
     </div>
   );
 }
